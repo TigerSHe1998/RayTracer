@@ -1,0 +1,86 @@
+# bunny, buddha, dragon, lucy
+
+fov 60
+
+background 0.5 0.8 0.9
+rays_per_pixel 1
+
+disk_light  3 5 -2  1  -1 -1 1  .5 .5 .5
+disk_light  -3 5 -2  1  1 -1 1  .5 .5 .5
+
+# ground
+glossy  .5 .5 .5  0 0 0 0 .7 0.1
+
+begin
+vertex -100 -1 -100
+vertex  100 -1 -100
+vertex  100 -1  100
+end
+
+begin
+vertex  100 -1  100
+vertex -100 -1  100
+vertex -100 -1 -100
+end
+
+# the statues
+
+push
+
+translate 3 0 -8
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+begin_accel
+read dragon_100k.cli
+end_accel
+
+pop
+
+push
+
+translate -2.7 0 -8
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+translate 0 -1 0
+scale 1.5 1.5 1.5
+translate 0 1 0
+
+begin_accel
+read lucy_100k.cli
+end_accel
+
+pop
+
+push
+
+translate .9 0 -8
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+translate 0 -1 0
+scale 1.4 1.4 1.4
+translate 0 1 0
+
+begin_accel
+read buddha_100k.cli
+end_accel
+
+pop
+
+push
+
+translate -.9 0 -8
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+begin_accel
+read bun69k.cli
+end_accel
+
+pop
+
+render
+
+

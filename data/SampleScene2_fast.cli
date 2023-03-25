@@ -1,0 +1,86 @@
+# Sample Scene 02, moving red icos polygon with motion blur along with various glossy spheres and mirror with depth of field
+
+rays_per_pixel 1
+fov 60
+lens  0.05  4.5
+background 0.5 0.8 0.9
+
+# light sources
+
+disk_light  3 5 -2  1  -1 -1 1  .5 .5 .5
+disk_light  -3 5 -2  1  1 -1 1  .5 .5 .5
+
+# spheres resting on ground
+
+glossy  0 0 0  .8 .8 .8  64  .8 0.1
+sphere  1  .6 0 -5
+
+glossy  .3 1 .3  .8 .8 .8  96  0 0
+sphere  .4  -0.6 -.6 -4.5
+
+glossy  .5 .3 1  .8 .8 .8  96  0 0
+sphere  .3  0 -.7 -3.5
+
+glossy  1 1 1  .8 .8 .8  96  0 0
+sphere  .4  1.2 -.6 -3.7
+
+# red icos
+glossy  .9 .4 .4  .8 .8 .8 64 0 0
+
+begin_accel
+read icos.cli
+end_accel
+named_object icos
+
+
+push
+translate -1.2 0 -4
+scale 0.8 0.8 0.8
+rotatey 15
+rotatex 5
+instance icos
+pop
+moving_object 0.6 .3 0
+
+# these two triangles acts as a ground plane
+
+glossy  .5 .5 .5  0 0 0  0  .7 .1
+
+begin
+vertex -100 -1 -100
+vertex  100 -1 -100
+vertex  100 -1  100
+end
+
+begin
+vertex  100 -1  100
+vertex -100 -1  100
+vertex -100 -1 -100
+end
+
+
+# mirror
+push
+
+glossy  0 0 0  0 0 0  0  .9 0
+
+translate 0 3 -7
+rotatex 35
+scale 3 2.5 0
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+render
+

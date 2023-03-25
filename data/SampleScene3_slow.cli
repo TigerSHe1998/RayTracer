@@ -1,0 +1,101 @@
+# Sample Scene 03, Infinite reflection mirrors with some scattered diffuse geometry
+
+fov 55
+background 0.5 0.8 0.9
+rays_per_pixel 50
+
+disk_light  3 5 -2  1  -1 -1 1  .5 .5 .5
+disk_light  -3 5 -2  1  1 -1 1  .5 .5 .5
+
+# red icos
+glossy  .9 .3 .3  .8 .8 .8 64 0 0
+
+push
+translate 0.5 0 -4
+scale 0.5 0.5 0.5
+rotatey 15
+rotatex 5
+read icos.cli
+pop
+
+# ground
+glossy  .5 .5 .5  0 0 0 0 .7 0.1
+
+begin
+vertex -100 -1 -100
+vertex  100 -1 -100
+vertex  100 -1  100
+end
+
+begin
+vertex  100 -1  100
+vertex -100 -1  100
+vertex -100 -1 -100
+end
+
+# create a named object (a box)
+glossy  1 1 1  0 0 0 50 0 0
+box -1 -1 -1  1 1 1
+named_object a_box
+
+# translate an instanced box
+push
+translate -1 -0.4 -4
+scale 0.5 0.5 0.5
+rotatey 30
+rotatex 5
+instance a_box
+pop
+
+surface  .3 .3 1
+sphere  .4  0 -.6 -5
+
+surface  .3 1 .3
+sphere  .4  0.9 -.6 -3
+
+# mirror back
+push
+glossy  0 0 0  0 0 0  0  .9 0
+
+translate 0 0 -9
+rotatex 1
+scale 4 4 4
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+# mirror front
+push
+
+translate 0 0 0
+rotatex -1
+scale 4 4 4
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+
+render
+

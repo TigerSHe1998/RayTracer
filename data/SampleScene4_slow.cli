@@ -1,0 +1,95 @@
+# Sample Scene 03, Infinite reflection mirrors with the stanford bunny (69k)
+
+fov 55
+background 0.5 0.8 0.9
+rays_per_pixel 50
+
+disk_light  3 5 -2  1  -1 -1 1  .5 .5 .5
+disk_light  -3 5 -2  1  1 -1 1  .5 .5 .5
+
+
+# ground
+glossy  .5 .5 .5  0 0 0 0 .7 0.1
+
+begin
+vertex -100 -1 -100
+vertex  100 -1 -100
+vertex  100 -1  100
+end
+
+begin
+vertex  100 -1  100
+vertex -100 -1  100
+vertex -100 -1 -100
+end
+
+# stanford bunny 500
+push
+translate -0.7 -0.5 -4
+scale 0.5 0.5 0.5
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+begin_accel
+read bun500.cli
+end_accel
+pop
+
+# stanford bunny 69k
+push
+translate 0.7 -0.5 -4
+scale 0.5 0.5 0.5
+
+glossy  1 1 1 .4 .4 .4  64 0 0
+
+begin_accel
+read bun69k.cli
+end_accel
+pop
+
+# mirror back
+push
+glossy  0 0 0  0 0 0  0  .9 0
+
+translate 0 0 -9
+rotatex 1
+scale 4 4 4
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+# mirror front
+push
+
+translate 0 0 0
+rotatex -1
+scale 4 4 4
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+
+render
+

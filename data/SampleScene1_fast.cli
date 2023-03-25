@@ -1,0 +1,88 @@
+# Sample Scene 01, glossy lucy statue with reflective plane and spheres with various surface properties and depth of field
+
+fov 60
+background 0.5 0.8 0.9
+rays_per_pixel 1
+lens  0.05  4.5
+
+disk_light  3 5 -2  1  -1 -1 1  .5 .5 .5
+disk_light  -3 5 -2  1  1 -1 1  .5 .5 .5
+
+glossy  .5 .5 .5  0 0 0  0  .7 .1
+
+begin
+vertex -100 -2 -100
+vertex  100 -2 -100
+vertex  100 -2  100
+end
+
+begin
+vertex  100 -2  100
+vertex -100 -2 100
+vertex -100 -2 -100
+end
+
+glossy  1 1 1 .8 .8 .8  64 0 0
+
+begin_accel
+read lucy_100k.cli
+end_accel
+named_object lucy
+
+# glossy sphere
+glossy  0 0 0  .8 .8 .8  50  .9 0
+sphere  .8  -1.5 -0.2 -4
+
+# spheres resting on ground
+push
+translate 0 -1 0
+
+surface  .3 .3 1
+sphere  .4  1.4 -.6 -4
+
+surface  .3 1 .3
+sphere  .4  0.2 -.6 -3
+
+surface  1 .3 .3
+sphere  .4  -1 -.6 -4
+
+pop
+
+push
+
+# mirror
+glossy  0 0 0  0 0 0  0  .9 0
+
+translate 1 0 -8
+rotatey -20
+rotatex 8
+scale 3 4 2
+
+begin
+vertex -1 -1 0
+vertex  1 -1 0
+vertex  1  1 0
+end
+
+begin
+vertex  1  1 0
+vertex -1  1 0
+vertex -1 -1 0
+end
+
+pop
+
+
+push
+
+translate 0 0 -5
+
+push
+scale 2 2 2
+instance lucy
+pop
+
+pop
+
+
+render
